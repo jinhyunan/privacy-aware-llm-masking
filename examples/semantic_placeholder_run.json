@@ -1,0 +1,84 @@
+{
+  "source_sentence": "유선상으로 말씀하신 거래대금 120만원은 샘플은행 000-0000-000 예금주 샘플사용자로 12월 15일 오후 3시 전까지 송금해주세요. 혹시 문제가 있다면 sample.user@example.com으로 메일 보내주세요. 제 주소는 서울시 샘플구 데이터로 1길 000호입니다.",
+  "detected_spans": [
+    {
+      "key": "AMOUNT_0",
+      "label": "amount",
+      "original": "120만원",
+      "start": 16,
+      "end": 21,
+      "description": "Korean won amount; do not expose the literal value to the translator.",
+      "display_restore": "1.2 million won",
+      "placeholder": "{AMOUNT_0}"
+    },
+    {
+      "key": "BANK_ACCOUNT_0",
+      "label": "bank_account",
+      "original": "샘플은행 000-0000-000",
+      "start": 23,
+      "end": 40,
+      "description": "Synthetic bank account; preserve as an opaque placeholder during translation.",
+      "display_restore": "Sample Bank account 000-0000-000",
+      "placeholder": "{BANK_ACCOUNT_0}"
+    },
+    {
+      "key": "ACCOUNT_HOLDER_0",
+      "label": "person_name",
+      "original": "샘플사용자",
+      "start": 45,
+      "end": 50,
+      "description": "Synthetic account holder name; preserve as an opaque placeholder during translation.",
+      "display_restore": "Sample User",
+      "placeholder": "{ACCOUNT_HOLDER_0}"
+    },
+    {
+      "key": "DEADLINE_0",
+      "label": "deadline",
+      "original": "12월 15일 오후 3시 전까지",
+      "start": 52,
+      "end": 69,
+      "description": "Transfer deadline; only the semantic role is sent to the translator.",
+      "display_restore": "3:00 PM on December 15",
+      "placeholder": "{DEADLINE_0}"
+    },
+    {
+      "key": "EMAIL_0",
+      "label": "email",
+      "original": "sample.user@example.com",
+      "start": 89,
+      "end": 112,
+      "description": "Synthetic email address; preserve as an opaque placeholder during translation.",
+      "display_restore": "sample.user@example.com",
+      "placeholder": "{EMAIL_0}"
+    },
+    {
+      "key": "ADDRESS_0",
+      "label": "address",
+      "original": "서울시 샘플구 데이터로 1길 000호",
+      "start": 131,
+      "end": 151,
+      "description": "Synthetic Korean mailing address; preserve as an opaque placeholder during translation.",
+      "display_restore": "000, Data-ro 1-gil, Sample-gu, Seoul",
+      "placeholder": "{ADDRESS_0}"
+    }
+  ],
+  "masked_text_sent_to_translator": "유선상으로 말씀하신 거래대금 {AMOUNT_0}은 {BANK_ACCOUNT_0} 예금주 {ACCOUNT_HOLDER_0}로 {DEADLINE_0} 송금해주세요. 혹시 문제가 있다면 {EMAIL_0}으로 메일 보내주세요. 제 주소는 {ADDRESS_0}입니다.",
+  "translation_prompt_sent_to_translator": "Translate the Korean text into natural English.\nKeep every placeholder exactly unchanged, including braces.\nDo not infer, expand, romanize, or fabricate the hidden sensitive values.\nUse the descriptions only to understand grammar and surrounding context.\n\nPlaceholder descriptions:\n- {AMOUNT_0}: Korean won amount; do not expose the literal value to the translator.\n- {BANK_ACCOUNT_0}: Synthetic bank account; preserve as an opaque placeholder during translation.\n- {ACCOUNT_HOLDER_0}: Synthetic account holder name; preserve as an opaque placeholder during translation.\n- {DEADLINE_0}: Transfer deadline; only the semantic role is sent to the translator.\n- {EMAIL_0}: Synthetic email address; preserve as an opaque placeholder during translation.\n- {ADDRESS_0}: Synthetic Korean mailing address; preserve as an opaque placeholder during translation.\n\nText:\n유선상으로 말씀하신 거래대금 {AMOUNT_0}은 {BANK_ACCOUNT_0} 예금주 {ACCOUNT_HOLDER_0}로 {DEADLINE_0} 송금해주세요. 혹시 문제가 있다면 {EMAIL_0}으로 메일 보내주세요. 제 주소는 {ADDRESS_0}입니다.",
+  "prompt_pii_exposure_check": {
+    "ok": true,
+    "leaked_values": []
+  },
+  "translated_text_received_from_translator": "Please transfer the transaction amount {AMOUNT_0} mentioned over the phone to {BANK_ACCOUNT_0}, account holder {ACCOUNT_HOLDER_0}, by {DEADLINE_0}. If there are any issues, please email {EMAIL_0}. My address is {ADDRESS_0}.",
+  "placeholder_validation": {
+    "ok": true,
+    "missing": [],
+    "extra": []
+  },
+  "literal_local_restore": "Please transfer the transaction amount 120만원 mentioned over the phone to 샘플은행 000-0000-000, account holder 샘플사용자, by 12월 15일 오후 3시 전까지. If there are any issues, please email sample.user@example.com. My address is 서울시 샘플구 데이터로 1길 000호.",
+  "display_policy_local_restore": "Please transfer the transaction amount 1.2 million won mentioned over the phone to Sample Bank account 000-0000-000, account holder Sample User, by 3:00 PM on December 15. If there are any issues, please email sample.user@example.com. My address is 000, Data-ro 1-gil, Sample-gu, Seoul.",
+  "notes": [
+    "No external translation API is called in this demo.",
+    "The translator-facing text contains placeholders and type metadata, not raw sensitive values.",
+    "Literal and display-aware restoration are local post-processing steps."
+  ]
+}

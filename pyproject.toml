@@ -1,0 +1,10 @@
+[project]
+name = "privacy-aware-llm-masking"
+version = "0.1.0"
+description = "Synthetic demo of semantic placeholders for privacy-aware LLM workflows."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

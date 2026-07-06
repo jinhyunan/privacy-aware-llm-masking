@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy-Aware LLM Masking</title>
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --panel: #ffffff;
+      --ink: #17222e;
+      --muted: #5b6b7b;
+      --line: #dde4ec;
+      --accent: #0b66c3;
+      --warn: #b26a00;
+      --code: #101820;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+      line-height: 1.65;
+    }
+    main { max-width: 980px; margin: 0 auto; padding: 56px 24px 72px; }
+    section { padding: 34px 0; border-top: 1px solid var(--line); }
+    section:first-child { border-top: 0; }
+    h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.14; margin: 0 0 18px; }
+    h2 { font-size: 26px; margin: 0 0 12px; }
+    p { color: var(--muted); margin: 0 0 14px; }
+    .lead { font-size: 19px; color: #2f3f4f; max-width: 760px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
+    .card b { display: block; color: var(--accent); margin-bottom: 6px; }
+    pre {
+      background: var(--code);
+      color: #edf7ff;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 18px; }
+    .step { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-height: 118px; }
+    .step span { color: var(--accent); font-weight: 700; }
+    .note { border-left: 5px solid var(--accent); background: #eaf3ff; padding: 16px; border-radius: 6px; color: #233648; }
+    @media (max-width: 780px) {
+      .grid, .flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <h1>Privacy-aware LLM masking for internal-data readiness</h1>
+    <p class="lead">사내/민감 데이터를 LLM 분석에 활용하기 전에, 원문 값을 외부 모델에 직접 보내지 않는 경계를 합성 예시로 시연한 미니 프로젝트입니다.</p>
+  </section>
+
+  <section>
+    <h2>문제</h2>
+    <div class="grid">
+      <div class="card"><b>Raw prompt risk</b><p>업무 텍스트에는 이름, 계좌형 문자열, 이메일, 주소, 금액, 일정이 섞입니다.</p></div>
+      <div class="card"><b>Naive masking</b><p>무의미한 토큰은 안전하지만 문맥을 잃어 번역/요약 품질이 흔들립니다.</p></div>
+      <div class="card"><b>Restore fragility</b><p>모델이 토큰이나 surrogate를 변형하면 원복이 깨집니다.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>권장 구조</h2>
+    <pre>{AMOUNT_0}
+{BANK_ACCOUNT_0}
+{ACCOUNT_HOLDER_0}
+{DEADLINE_0}
+{EMAIL_0}
+{ADDRESS_0}</pre>
+    <p>외부 모델에 보낼 텍스트는 placeholder와 역할 설명만 남기고, 원문 값은 로컬 매핑으로만 복원합니다.</p>
+  </section>
+
+  <section>
+    <h2>흐름</h2>
+    <div class="flow">
+      <div class="step"><span>1</span><br>Detect spans</div>
+      <div class="step"><span>2</span><br>Replace with semantic placeholders</div>
+      <div class="step"><span>3</span><br>Prepare metadata hints only</div>
+      <div class="step"><span>4</span><br>Validate placeholders</div>
+      <div class="step"><span>5</span><br>Restore locally</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>경계</h2>
+    <p class="note">이 데모는 합성 예시만 사용하며, 실제 사내 데이터나 고객/프로젝트 식별자는 포함하지 않습니다. 외부 API를 호출하지 않고 모델 단계는 시뮬레이션합니다. 목적은 규정 준수 제품을 주장하는 것이 아니라, LLM 활용 전 마스킹 사고방식을 보여주는 것입니다.</p>
+  </section>
+</main>
+</body>
+</html>
